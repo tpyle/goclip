@@ -8,6 +8,11 @@ cgo, on Linux, Windows, and macOS.
 import "github.com/tpyle/goclip"
 
 func main() {
+	// Required on every platform - see "Why a helper process on Linux"
+	// below for why this must run first, unconditionally.
+	if clipboard.MaybeRunHolder(os.Args[1:]) {
+		return
+	}
 	if err := clipboard.Write("hello, clipboard"); err != nil {
 		log.Fatal(err)
 	}
@@ -15,7 +20,9 @@ func main() {
 ```
 
 Note the package name is `clipboard`; the import path is
-`github.com/tpyle/goclip`.
+`github.com/tpyle/goclip`. See [`examples/`](examples) for two small,
+runnable programs, and the [wiki](https://github.com/tpyle/goclip/wiki)
+for the full documentation this README summarizes.
 
 ## Platform support
 
