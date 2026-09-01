@@ -1,0 +1,29 @@
+version: "2"
+
+linters:
+  default: standard
+  enable:
+    - gosec
+    - revive
+    - misspell
+    - unconvert
+    - unparam
+    - gocritic
+    - bodyclose
+    - noctx
+  settings:
+    gosec:
+      excludes:
+        - G104 # duplicates errcheck's "unhandled error" check, already tuned (below) for this codebase's best-effort Close()/cleanup calls
+    errcheck:
+      exclude-functions:
+        - fmt.Fprint
+        - fmt.Fprintln
+        - fmt.Fprintf
+        - io.Copy
+        - io.WriteString
+
+formatters:
+  enable:
+    - gofmt
+    - goimports
